@@ -11,9 +11,9 @@ public class ReadTokenCache extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("timer:gettoken?period={{timer.period}}")            
-            .to("caffeine-cache://cache?key=1&action=GET")            
-            .log("Test! ${body}")
+        from("timer:readToken?period={{timer.period}}")
+            .to("caffeine-cache://cache?key={{cache.key}}&action=GET")            
+            .log(" ## TOKEN FROM CACHE:: ${body}")
         ;
 
     }

@@ -9,14 +9,13 @@ public class CacheTokenRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("timer:gettoken?period={{timer.period}}")
+        from("timer:getToken?period={{timer.period}}")
             //recuperarToke o resultado é setado no corpo, oq estiver no corpo é oq vai ser inserido no cache
             .bean("greeting", "greet")
+            // .setBody(simple("Hello ${body}"))
+            // .setBody (simple ("Hello World, " + counter++))
             //Inserir no cache
-            .to("caffeine-cache://cache?action=PUT&key=1")
-            //Recuperar do cache
-            // .to("caffeine-cache://cache?key=1&action=GET")            
-            // .log("Test! ${body}")
+            .to("caffeine-cache://cache?action=PUT&key={{cache.key}}")           
         ;
     }
 }
